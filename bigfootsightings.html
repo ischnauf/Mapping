@@ -20,6 +20,14 @@
         font-family: 'typewriter';
         src: url(bigfoot/atwriter.ttf);
       }
+      @font-face {
+        font-family: 'westfalia';
+        src: url(index/westfaliav2-regular.woff);
+      }
+      @font-face {
+        font-family: 'patrickhand';
+        src: url(index/PatrickHand-Regular.ttf);
+      }
       html{
         width: 100vw;
         height: 100vh;
@@ -40,7 +48,52 @@
         overflow: hidden;
         
       }
-            
+
+      /*heading*/
+      .heading{
+        position: absolute;
+        background-color: #FCF5EB;
+        width: 100vw;
+        height: 5vh;
+        top: -5vh;
+        left: 0px;
+        border-bottom: 2px solid #6f7b97;
+        color: #525d76 !important;
+        z-index: 9999;
+      }
+      .name{
+        position: absolute;
+        width: 50vw;
+        height: 5vh;
+        left: 0vw;
+        top: 0vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "westfalia";
+        font-size: 3.5vh;
+      }
+      .links{
+        position: absolute;
+        width: 50vw;
+        height: 5vh;
+        right: 0vw;
+        top: 0vh;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        font-family: "patrickhand";
+        font-size: 2.5vh;
+      }
+      a{
+        color: #525d76 !important;
+        text-decoration: none;
+      }
+      a:hover{
+        color: white;
+      }
+       
+      /*page content*/
       .photo1{
         position: absolute;
         top: 9vh;
@@ -286,6 +339,15 @@
     <title>wwo 26 - spooky</title>
   </head>
   <body>
+    <div class="heading">
+        <div class="name">
+            Ilana Schnaufer
+        </div>
+        <div class="links">
+            <a href="index.html">Projects</a>
+            <a href="">About</a>
+        </div>
+    </div>
   
     <div class="loading">
       <p>map has a lot of points and may take a moment to load, please be patient</p>
@@ -443,7 +505,7 @@
         const dynamicIcon = L.divIcon({
             html: `
               <div class="custom-marker-container" style="position: relative; width: 100%; height: 100%;">
-                <img class="custom-marker-img" src="/bigfoot/bigfoot.png" alt="marker" style="width: 100%; height: 100%;" />
+                <img class="custom-marker-img" src="bigfoot/bigfoot.png" alt="marker" style="width: 100%; height: 100%;" />
                   <span class="custom-marker-text" style="font-size: ${size * 0.25}px;">${sightings}</span>
               </div>
             `,
