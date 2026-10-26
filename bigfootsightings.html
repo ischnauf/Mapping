@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>2025 Cascade Hikes</title> 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <script src="https://unpkg.com/leaflet-providers@latest/leaflet-providers.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+      @font-face {
+        font-family: 'reeniebeanie';
+        src: url(/bigfoot/ReenieBeanie.ttf);
+      }
+      @font-face {
+        font-family: 'typewriter';
+        src: url(/bigfoot/atwriter.ttf);
+      }
+      html{
+        width: 100vw;
+        height: 100vh;
+      }
+      
+      body {
+        position: absolute;
+        top: 5vh;
+        left: 0px;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: black;
+        background-image: url("/bigfoot/desk.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        overflow: hidden;
+        
+      }
+            
+      .photo1{
+        position: absolute;
+        top: 9vh;
+        left: 5vw;
+        width: 16vw;
+        z-index: 2;
+        transform: rotate(-5deg);
+      }
+      .photo2{
+        position: absolute;
+        top: 4vh;
+        left: 17vw;
+        width: 16vw;
+        z-index: 2;
+        transform: rotate(10deg);
+      }
+      .photo1:hover{
+        transform: scale(1.4);
+      }
+      .photo2:hover{
+        transform: scale(1.4);
+      }
+      .paper{
+        position: absolute;
+        bottom: 70vh;
+        left: 31vw;
+        width: 35vw;
+        z-index: 1;
+      }
+      .note{
+        position: absolute;
+        z-index: 2;
+        font-family: reeniebeanie;
+        width: 24.5vw;
+        left: 38vw;
+        top: -2vh;
+        font-size: 3.2vh;
+        margin: 0;
+        padding: 0;
+      }
+      .note a{
+        color: black;
+      }
+
+      .pin{
+        position: absolute;
+        bottom: 3vh;
+        left: 59vw;
+        width: 14vw;
+        z-index: 99;
+        transform: rotate(40deg);
+      }
+      .newspaper{
+        position: absolute;
+        top: 0vh;
+        right: -3vw;
+        width: 36vw;
+        z-index: 99999;
+        transform: rotate(-15deg);
+        z-index: 1;
+      }
+    
+      .loading{
+        position: absolute;
+        z-index: 0;
+        width: 30vw;
+        top: 55vh;
+        left: 20vw;
+        color: white;
+        font-family: typewriter;
+        font-size: 1.5vw;
+      }
+
+      /*notebook*/
+      .notebook {
+        position: absolute;
+        left: 74vw;
+        top: 40vh;
+        width: 34vh;
+        height: 45vh;
+        perspective: 1500px;
+        margin: 50px auto;
+        z-index: 2;
+        font-family: reeniebeanie;
+        font-size: 3vh;
+      }
+
+      .page {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #FCEFDE;
+        border: 5px transparent #ccc;
+        border-top: 1px solid grey;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        transform-origin: top center;
+        transform-style: preserve-3d;
+        transition: transform 0.6s ease-in-out;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding: 20px;
+        box-sizing: border-box;
+        cursor: pointer;
+      }
+      .page::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #FCEFDE;
+        z-index: 0;
+        transform: rotateX(180deg);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+      }
+      .page-1::after{
+        background-color: #af9179;
+      }
+      .page-4::after{
+        background-image: url("/bigfoot/notesback.png");
+        background-size: cover;
+      }
+      .page.flipped {
+        transform: rotateX(175deg);
+        transition: transform 0.8s, z-index 0s 0.4s;
+      }
+      .page-1 { z-index: 99; }
+      .page-2 { z-index: 98; }
+      .page-3 { z-index: 80 }
+      .page-4 { z-index: 70 }
+      .page-1.flipped { z-index: 20; }
+      .page-2.flipped { z-index: 50; }
+      .page-3.flipped { z-index: 60; }
+      .page-4.flipped { z-index: 70; }
+      
+      .page-1{
+        margin: 0;
+        padding: 0;
+        background-color: rgba(0, 0, 0, 0);
+      }
+      .notes{
+        width: 100%;
+        height: 100%;
+      }
+      
+      /*leaflet*/
+      #map{
+        position: absolute;
+        height: 65vh;
+        width: 70vw;
+        top: 28vh;
+        left: 1vw;
+        z-index: 1;
+      }
+      #map.leaflet-pseudo-fullscreen {
+        z-index: 99999;
+      }
+
+      /*legend*/
+      .legend {
+        background: rgba(255,255,255,.5);
+        color: white;
+        padding: 0 5px 0 5px;
+        border-radius: 5px;
+      }
+      
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0px;
+        margin: -20px 0 -5px 0;
+      }
+      
+
+      /*bigfoot state markers*/
+      .custom-marker-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .custom-marker-img {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .custom-marker-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: bold;
+        color: white;
+        font-family: Arial, sans-serif;
+        pointer-events: none;
+      }
+
+      .popup-content{
+        height: 30vh;
+        width: 100%;
+        line-height: 1;
+        margin: -0.5vh;
+        overflow-Y: scroll;
+        font-family: typewriter;
+      }
+
+      /*charts*/
+      #seasonChartContainer{
+        position: relative;
+        height: 90%;
+        width: 100%;
+        top: -4vh;
+      }
+      #seasonChart {
+        width: 100% !important;
+        height: 100% !important;
+      }
+      #yearChartContainer{
+        position: relative;
+        height: 90%;
+        width: 100%;
+        top: -4vh;
+      }
+      #yearChart {
+        width: 100% !important;
+        height: 100% !important;
+      }
+      #moonChartContainer{
+        position: relative;
+        height: 90%;
+        width: 100%;
+        top: -4vh;
+      }
+      #moonChart {
+        width: 100% !important;
+        height: 100% !important;
+      }
+      
+</style>
+    <title>wwo 26 - spooky</title>
+  </head>
+  <body>
+  
+    <div class="loading">
+      <p>map has a lot of points and may take a moment to load, please be patient</p>
+    </div>
+
+    <div class="note">
+      <p>bigfoot sightings from 1869 - 2023 compiled by the <a href="https://bfro.net/">bigfoot field researchers organization</a>. zoom in closer to a state to see individual sightings and click on a point for sighting info. check out field notes for stats.</p>
+    </div>
+
+    <div id="leaflet">
+      <div id="map"></div>
+    </div>
+
+    <img class="photo1" src="/bigfoot/photo1.png">
+    <img class="photo2" src="/bigfoot/photo2.png">
+    <img class="pin" src="/bigfoot/pin.png">
+    <img class="paper" src="/bigfoot/paper.png">
+    <img class="newspaper" src="/bigfoot/newspaper.png" title="Historical photo courtesy of the Granger Historical Picture Archive / Newspaper clipping via The Berkshire Eagle">
+    
+
+    <div class="notebook">
+      <div class="page page-4">
+        <div id="moonChartContainer">
+          <p>sightings by moon phase</p>
+          <canvas id="moonChart"></canvas>
+        </div>
+      </div>
+      <div class="page page-3">
+        <div id="yearChartContainer">
+          <p>sightings by year</p>
+          <canvas id="yearChart"></canvas>
+        </div>
+      </div>
+      <div class="page page-2">
+        <div id="seasonChartContainer">
+          <p>sightings by season</p>
+          <canvas id="seasonChart"></canvas>
+        </div>
+      </div>
+      <div class="page page-1">
+        <img class="notes" src="/bigfoot/notes.png">
+      </div>
+    </div>
+
+    
+    
+    <script>
+      fetch("/bigfoot/reports.geojson")
+      .then(response => response.json())
+      .then(sightings => {
+        //MAP
+        const config = {
+            fullscreenControl: {
+                pseudoFullscreen: true,}
+        };
+        var map = L.map('map', config).setView([39.56,-95.56], 4);
+
+        L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+          attribution: 'xxx',
+          maxZoom: 13,
+        }).addTo(map);
+
+        //add legend
+        const legend = L.control({ position: "bottomleft" });
+
+        legend.onAdd = function() {
+
+          const div = L.DomUtil.create("div", "legend");
+          
+          div.innerHTML = `
+            <h4>Bigfoot Sightings</h4>
+             
+            <div class="legend-item">
+              <img src="/bigfoot/bigfoot.png" style="width:30px;height:30px;">
+              <span># of sightings</span>
+            </div>
+ 
+          `;
+          return div;
+        };
+        
+        legend.addTo(map);
+
+      //Bigfoot state point data
+      const locations = {
+        "type": "FeatureCollection",
+        "name": "bigfoot_state",
+        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        "features": [
+        { "type": "Feature", "properties": { "STATE_NAME": "Alabama", "POPULATION": 5024279, "POP_SQMI": 97.3, "Sightings": 87 }, "geometry": { "type": "Point", "coordinates": [ -86.826345443999969, 32.794823332000078 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Arizona", "POPULATION": 7151502, "POP_SQMI": 62.7, "Sightings": 63 }, "geometry": { "type": "Point", "coordinates": [ -111.664591940999969, 34.291683410000076 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Arkansas", "POPULATION": 3011524, "POP_SQMI": 56.6, "Sightings": 93 }, "geometry": { "type": "Point", "coordinates": [ -92.433801478999953, 34.897953080000036 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "California", "POPULATION": 39538223, "POP_SQMI": 250.2, "Sightings": 282 }, "geometry": { "type": "Point", "coordinates": [ -119.258934200999988, 36.354723549000028 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Colorado", "POPULATION": 5773714, "POP_SQMI": 55.5, "Sightings": 107 }, "geometry": { "type": "Point", "coordinates": [ -105.547857282999985, 38.997263158000067 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Connecticut", "POPULATION": 3605944, "POP_SQMI": 727.8, "Sightings": 16 }, "geometry": { "type": "Point", "coordinates": [ -72.724769982999987, 41.618032661000029 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Delaware", "POPULATION": 989948, "POP_SQMI": 503.0, "Sightings": 3 }, "geometry": { "type": "Point", "coordinates": [ -75.500553674999935, 38.995114434000072 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Florida", "POPULATION": 21538187, "POP_SQMI": 381.4, "Sightings": 285 }, "geometry": { "type": "Point", "coordinates": [ -83.838311210999962, 30.336878746000025 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Georgia", "POPULATION": 10711908, "POP_SQMI": 182.5, "Sightings": 116 }, "geometry": { "type": "Point", "coordinates": [ -83.455748841999934, 32.656462003000058 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Idaho", "POPULATION": 1839106, "POP_SQMI": 22.0, "Sightings": 75 }, "geometry": { "type": "Point", "coordinates": [ -114.661865410999951, 44.385895467000068 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Illinois", "POPULATION": 12812508, "POP_SQMI": 227.4, "Sightings": 211 }, "geometry": { "type": "Point", "coordinates": [ -89.203767833999962, 40.064000171000032 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Indiana", "POPULATION": 6785528, "POP_SQMI": 187.5, "Sightings": 43 }, "geometry": { "type": "Point", "coordinates": [ -86.27615732299995, 39.912740119000034 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Iowa", "POPULATION": 3190369, "POP_SQMI": 56.7, "Sightings": 44 }, "geometry": { "type": "Point", "coordinates": [ -93.501090902999977, 42.075989143000072 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Kansas", "POPULATION": 2937880, "POP_SQMI": 35.7, "Sightings": 43 }, "geometry": { "type": "Point", "coordinates": [ -98.383257244, 38.482657472000028 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Kentucky", "POPULATION": 4505836, "POP_SQMI": 111.5, "Sightings": 102 }, "geometry": { "type": "Point", "coordinates": [ -85.288341517999982, 37.526980482000056 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Louisiana", "POPULATION": 4657757, "POP_SQMI": 102.7, "Sightings": 33 }, "geometry": { "type": "Point", "coordinates": [ -92.786789772999953, 31.331618089000074 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Maine", "POPULATION": 1362359, "POP_SQMI": 42.0, "Sightings": 9 }, "geometry": { "type": "Point", "coordinates": [ -69.028390160999948, 45.737112208000042 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Maryland", "POPULATION": 6177224, "POP_SQMI": 626.5, "Sightings": 11 }, "geometry": { "type": "Point", "coordinates": [ -77.291293027999984, 39.383176706000029 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Massachusetts", "POPULATION": 7029917, "POP_SQMI": 869.7, "Sightings": 22 }, "geometry": { "type": "Point", "coordinates": [ -71.708309892999978, 42.354505306000078 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Michigan", "POPULATION": 10077331, "POP_SQMI": 173.6, "Sightings": 160 }, "geometry": { "type": "Point", "coordinates": [ -84.628623434999952, 43.48267235600008 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Minnesota", "POPULATION": 5706494, "POP_SQMI": 67.6, "Sightings": 44 }, "geometry": { "type": "Point", "coordinates": [ -94.305945682999948, 46.315646578000042 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Mississippi", "POPULATION": 2961279, "POP_SQMI": 62.1, "Sightings": 21 }, "geometry": { "type": "Point", "coordinates": [ -89.664005377999956, 32.759164102000057 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Missouri", "POPULATION": 6154913, "POP_SQMI": 88.3, "Sightings": 140 }, "geometry": { "type": "Point", "coordinates": [ -92.480188643999952, 38.363990125000043 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Montana", "POPULATION": 1084225, "POP_SQMI": 7.4, "Sightings": 47 }, "geometry": { "type": "Point", "coordinates": [ -109.652533691999963, 47.032266450000066 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Nebraska", "POPULATION": 1961504, "POP_SQMI": 25.4, "Sightings": 14 }, "geometry": { "type": "Point", "coordinates": [ -99.80780060099994, 41.52315827700005 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Nevada", "POPULATION": 3104614, "POP_SQMI": 28.1, "Sightings": 7 }, "geometry": { "type": "Point", "coordinates": [ -116.650735168999972, 39.352015799000071 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "New Hampshire", "POPULATION": 1377529, "POP_SQMI": 148.7, "Sightings": 7 }, "geometry": { "type": "Point", "coordinates": [ -71.577769589999946, 43.685191036000049 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "New Jersey", "POPULATION": 9288994, "POP_SQMI": 1236.6, "Sightings": 46 }, "geometry": { "type": "Point", "coordinates": [ -74.733191246999979, 39.626858617000039 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "New Mexico", "POPULATION": 2117522, "POP_SQMI": 17.4, "Sightings": 27 }, "geometry": { "type": "Point", "coordinates": [ -106.102403146999961, 34.423411010000052 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "New York", "POPULATION": 20201249, "POP_SQMI": 416.4, "Sightings": 61 }, "geometry": { "type": "Point", "coordinates": [ -74.869602290999978, 43.207092394000028 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "North Carolina", "POPULATION": 10439388, "POP_SQMI": 211.7, "Sightings": 79 }, "geometry": { "type": "Point", "coordinates": [ -79.413343467999937, 35.546778041000039 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "North Dakota", "POPULATION": 779094, "POP_SQMI": 11.0, "Sightings": 4 }, "geometry": { "type": "Point", "coordinates": [ -100.470755, 47.446077578000029 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Ohio", "POPULATION": 11799448, "POP_SQMI": 286.1, "Sightings": 286 }, "geometry": { "type": "Point", "coordinates": [ -82.787390669999979, 40.287535422000076 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Oklahoma", "POPULATION": 3959353, "POP_SQMI": 56.6, "Sightings": 85 }, "geometry": { "type": "Point", "coordinates": [ -97.509458561999963, 35.583978 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Oregon", "POPULATION": 4237256, "POP_SQMI": 43.7, "Sightings": 185 }, "geometry": { "type": "Point", "coordinates": [ -120.554627386, 43.931509557000027 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Pennsylvania", "POPULATION": 13002700, "POP_SQMI": 287.1, "Sightings": 53 }, "geometry": { "type": "Point", "coordinates": [ -77.802845411999954, 40.874889056000029 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Rhode Island", "POPULATION": 1097379, "POP_SQMI": 1021.9, "Sightings": 5 }, "geometry": { "type": "Point", "coordinates": [ -71.592807322999988, 41.693404540000074 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "South Carolina", "POPULATION": 5118425, "POP_SQMI": 166.1, "Sightings": 30 }, "geometry": { "type": "Point", "coordinates": [ -80.901227282999969, 33.921035460000041 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "South Dakota", "POPULATION": 886667, "POP_SQMI": 11.5, "Sightings": 6 }, "geometry": { "type": "Point", "coordinates": [ -100.235288917, 44.433318148000069 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Tennessee", "POPULATION": 6910840, "POP_SQMI": 164.0, "Sightings": 64 }, "geometry": { "type": "Point", "coordinates": [ -86.334067023999978, 35.846707883000079 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Texas", "POPULATION": 29145505, "POP_SQMI": 110.1, "Sightings": 219 }, "geometry": { "type": "Point", "coordinates": [ -99.355350210999973, 31.495735619000072 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Utah", "POPULATION": 3271616, "POP_SQMI": 38.5, "Sightings": 43 }, "geometry": { "type": "Point", "coordinates": [ -111.676053598999943, 39.322512276000054 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Vermont", "POPULATION": 643077, "POP_SQMI": 66.9, "Sightings": 4 }, "geometry": { "type": "Point", "coordinates": [ -72.660656259999939, 44.072240579000038 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Virginia", "POPULATION": 8631393, "POP_SQMI": 216.2, "Sightings": 75 }, "geometry": { "type": "Point", "coordinates": [ -78.898238445999937, 37.516506234000076 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Washington", "POPULATION": 7705281, "POP_SQMI": 114.2, "Sightings": 548 }, "geometry": { "type": "Point", "coordinates": [ -120.419447936999973, 47.373507820000043 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "West Virginia", "POPULATION": 1793716, "POP_SQMI": 74.0, "Sightings": 96 }, "geometry": { "type": "Point", "coordinates": [ -80.614059573999953, 38.641211009000074 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Wisconsin", "POPULATION": 5893718, "POP_SQMI": 105.1, "Sightings": 77 }, "geometry": { "type": "Point", "coordinates": [ -90.019730759999959, 44.631158700000071 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Wyoming", "POPULATION": 576851, "POP_SQMI": 5.9, "Sightings": 14 }, "geometry": { "type": "Point", "coordinates": [ -107.55308101199995, 42.998283762000028 ] } },
+        { "type": "Feature", "properties": { "STATE_NAME": "Alaska", "POPULATION": 740133, "POP_SQMI": 1.1, "Sightings": 12 }, "geometry": { "type": "Point", "coordinates": [ -151.522355742267621, 65.46332557432504 ] } }
+        ]
+      }
+
+
+      //create groups to control zoom visibility
+      const bigfootStateGroup = L.layerGroup().addTo(map);
+      const encounterGroup = L.layerGroup();
+      
+      //state icons varied by # of sightings
+      locations.features.forEach(loc => {
+        const sightings = loc.properties.Sightings;
+        const lng = loc.geometry.coordinates[0];
+        const lat = loc.geometry.coordinates[1];
+    
+        const size = Math.max(50, Math.min(80, sightings * 0.3));
+    
+        const dynamicIcon = L.divIcon({
+            html: `
+              <div class="custom-marker-container" style="position: relative; width: 100%; height: 100%;">
+                <img class="custom-marker-img" src="/bigfoot/bigfoot.png" alt="marker" style="width: 100%; height: 100%;" />
+                  <span class="custom-marker-text" style="font-size: ${size * 0.25}px;">${sightings}</span>
+              </div>
+            `,
+            className: '',
+            iconSize: [size, size],
+            iconAnchor: [size / 2, size / 2]
+          });
+      
+            L.marker([lat, lng], { icon: dynamicIcon })
+            .addTo(bigfootStateGroup);
+        });
+
+      //normal icons for encounters
+      const encounterIcon = L.icon({
+        iconUrl: "/bigfoot/bigfoot.png",
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+      });
+      
+      sightings.features.forEach(loc => {
+      
+        const lng = loc.geometry.coordinates[0];
+        const lat = loc.geometry.coordinates[1];
+        const p = loc.properties
+  
+        const html = `
+          <div class="popup-content">
+            <p><strong>${p.title}</strong></p>
+            <p><strong>Date:</strong> ${p.date}</p>
+            <p><strong>State:</strong> ${p.state}</p>
+            <p><strong>County:</strong> ${p.county}</p>
+            <p><strong>Weather:</strong> ${p.summary}</p>
+            <p><strong>Report:</strong> ${p.observed}</p>
+          </div>`;
+        
+          L.marker([lat, lng], {
+            icon: encounterIcon
+          }).addTo(encounterGroup).bindPopup(html);
+        });
+
+
+      //control zoom visibility
+      map.on("zoomend", function() {
+          if (map.getZoom() > 6) {
+            map.removeLayer(bigfootStateGroup);
+            map.addLayer(encounterGroup);
+          } else {
+              map.addLayer(bigfootStateGroup);
+            map.removeLayer(encounterGroup);
+          }
+
+      });    
+      
+      
+      //chart font
+      const MyCustomFont = new FontFace('reeniebeanie', 'url(/bigfoot/ReenieBeanie.ttf)');
+      document.fonts.ready.then(() => {
+  
+        Chart.defaults.font.family = 'reeniebeanie';
+        Chart.defaults.font.size = 20;
+        Chart.defaults.font.weight = 'bold';
+  
+        // Create season pie chart
+        const seasonCounts = sightings.features.reduce((acc, feature) => {
+        const season = feature.properties.season;
+  
+        if (season) {
+            acc[season] = (acc[season] || 0) + 1;
+        }
+    
+        return acc;
+        }, {});
+    
+        const labels = ["Spring", "Summer", "Fall", "Winter"];
+        const data = labels.map(label => seasonCounts[label] || 0);
+        
+        const ctx = document.getElementById("seasonChart");
+        
+        new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels,
+            datasets: [{
+              data,
+              backgroundColor: [
+                "#d9ae94",
+                "#9b9b7a",
+                "#e8ac65",
+                "#aeb0a4"
+              ],
+            borderColor: "grey",
+            borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+        
+        // Create year line chart
+        const yearCounts = {};
+        
+        sightings.features.forEach(feature => {
+          const date = feature.properties.date;
+        
+          if (!date) return;
+        
+          const year = date.substring(0, 4);
+        
+          yearCounts[year] = (yearCounts[year] || 0) + 1;
+        });
+        
+        const years = Object.keys(yearCounts).sort((a, b) => a - b);
+        const totals = years.map(year => yearCounts[year]);
+        
+        new Chart(document.getElementById("yearChart"), {
+          type: "line",
+          data: {
+            labels: years,
+            datasets: [{
+              label: "Sightings",
+              data: totals,
+              borderColor: "#849669",
+              backgroundColor: "rgba(255,255,255,0.15)",
+              borderWidth: 2,
+              tension: 0.2,
+              fill: true,
+              pointRadius: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: {
+                  color: "grey"
+                }
+              }
+            },
+            scales: {
+              x: {
+                ticks: {
+                  color: "black",
+                  maxTicksLimit: 10
+                }
+              },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: "black"
+                }
+              }
+            }
+          }
+        });
+  
+        //create moon chart
+        const phaseCounts = {};
+        
+        sightings.features.forEach(feature => {
+        const bucket =
+        Math.round(feature.properties.moon_phase * 4) / 4;
+        
+        phaseCounts[bucket] =
+        (phaseCounts[bucket] || 0) + 1;
+        });
+        
+        const points = Object.entries(phaseCounts)
+          .map(([phase, count]) => ({
+            x: Number(phase),
+            y: count
+          }))
+          .sort((a, b) => a.x - b.x);
+      
+        
+        new Chart(document.getElementById("moonChart"), {
+          type: "line",
+          data: {
+            datasets: [{
+              label: "Sightings",
+              data: points,
+              borderColor: "#84AABD",
+              backgroundColor: "rgba(255,255,255,0.15)",
+              borderWidth: 2,
+              tension: 0.2,
+              fill: true,
+              pointRadius: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: {
+                  color: "grey"
+                }
+              }
+            },
+            scales: {
+              x: {
+                type: "linear",
+                beginAtZero: true,
+                min: 0,
+                max: 1,
+                ticks: {
+                  color: "black",
+                  stepSize: 0.25,
+                  callback: function(value) {
+                    const labels = {
+                      0: "New",
+                      0.25: "Waxing",
+                      0.5: "Full",
+                      0.75: "Waning",
+                      1: "New"
+                    };
+                  return labels[value] !== undefined ? labels[value] : value;
+                  }
+                }
+              },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: "black",
+                }
+              }
+            }
+          }
+        });
+      });
+      });
+    </script>
+
+<script>
+  //notebook flip
+  const pages = document.querySelectorAll('.page');
+
+pages.forEach((page, index) => {
+  page.addEventListener('click', () => {
+    page.classList.toggle('flipped');
+  });
+});
+
+</script>
+    
+  </body>
+</html>
