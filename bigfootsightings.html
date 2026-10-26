@@ -14,11 +14,11 @@
     <style>
       @font-face {
         font-family: 'reeniebeanie';
-        src: url(/bigfoot/ReenieBeanie.ttf);
+        src: url(bigfoot/ReenieBeanie.ttf);
       }
       @font-face {
         font-family: 'typewriter';
-        src: url(/bigfoot/atwriter.ttf);
+        src: url(bigfoot/atwriter.ttf);
       }
       html{
         width: 100vw;
@@ -34,7 +34,7 @@
         height: 100vh;
         width: 100vw;
         background-color: black;
-        background-image: url("/bigfoot/desk.png");
+        background-image: url("bigfoot/desk.png");
         background-size: cover;
         background-repeat: no-repeat;
         overflow: hidden;
@@ -164,7 +164,7 @@
         background-color: #af9179;
       }
       .page-4::after{
-        background-image: url("/bigfoot/notesback.png");
+        background-image: url("bigfoot/notesback.png");
         background-size: cover;
       }
       .page.flipped {
@@ -299,11 +299,11 @@
       <div id="map"></div>
     </div>
 
-    <img class="photo1" src="/bigfoot/photo1.png">
-    <img class="photo2" src="/bigfoot/photo2.png">
-    <img class="pin" src="/bigfoot/pin.png">
-    <img class="paper" src="/bigfoot/paper.png">
-    <img class="newspaper" src="/bigfoot/newspaper.png" title="Historical photo courtesy of the Granger Historical Picture Archive / Newspaper clipping via The Berkshire Eagle">
+    <img class="photo1" src="bigfoot/photo1.png">
+    <img class="photo2" src="bigfoot/photo2.png">
+    <img class="pin" src="bigfoot/pin.png">
+    <img class="paper" src="bigfoot/paper.png">
+    <img class="newspaper" src="bigfoot/newspaper.png" title="Historical photo courtesy of the Granger Historical Picture Archive / Newspaper clipping via The Berkshire Eagle">
     
 
     <div class="notebook">
@@ -326,14 +326,14 @@
         </div>
       </div>
       <div class="page page-1">
-        <img class="notes" src="/bigfoot/notes.png">
+        <img class="notes" src="bigfoot/notes.png">
       </div>
     </div>
 
     
     
     <script>
-      fetch("/bigfoot/reports.geojson")
+      fetch("bigfoot/reports.geojson")
       .then(response => response.json())
       .then(sightings => {
         //MAP
@@ -359,7 +359,7 @@
             <h4>Bigfoot Sightings</h4>
              
             <div class="legend-item">
-              <img src="/bigfoot/bigfoot.png" style="width:30px;height:30px;">
+              <img src="bigfoot/bigfoot.png" style="width:30px;height:30px;">
               <span># of sightings</span>
             </div>
  
@@ -458,7 +458,7 @@
 
       //normal icons for encounters
       const encounterIcon = L.icon({
-        iconUrl: "/bigfoot/bigfoot.png",
+        iconUrl: "bigfoot/bigfoot.png",
         iconSize: [30, 30],
         iconAnchor: [15, 15]
       });
@@ -499,7 +499,7 @@
       
       
       //chart font
-      const MyCustomFont = new FontFace('reeniebeanie', 'url(/bigfoot/ReenieBeanie.ttf)');
+      const MyCustomFont = new FontFace('reeniebeanie', 'url(bigfoot/ReenieBeanie.ttf)');
       document.fonts.ready.then(() => {
   
         Chart.defaults.font.family = 'reeniebeanie';

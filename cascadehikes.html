@@ -15,7 +15,7 @@
   <style>
     @font-face {
       font-family: 'National Park';
-      src: url("/cascadehikes/NationalPark-Bold.woff");
+      src: url("cascadehikes/NationalPark-Bold.woff");
     }
     body{
       position: absolute;
@@ -45,7 +45,7 @@
     .leaflet-popup-content-wrapper, .leaflet-popup-tip { 
         background-color: #B58A67; 
         color: #301B07; 
-        background-image: url('/cascadehikes/wood.png');
+        background-image: url('cascadehikes/wood.png');
         background-size: auto;
         background-repeat: repeat;
         font-family: 'National Park';
@@ -76,7 +76,7 @@
       height: 65vh;
       top: 5vh;
       left: 0;
-      background-image: url('/cascadehikes/mountains.jpeg');
+      background-image: url('cascadehikes/mountains.jpeg');
       background-size: cover;
       background-repeat: no-repeat;
       z-index: 0;
@@ -294,21 +294,21 @@
 
   <div class="back"> 
     <div class="inreach-wrap">
-      <img class="inreach" src="/cascadehikes/inreachmini.png">
+      <img class="inreach" src="cascadehikes/inreachmini.png">
         <div id="stats">
           <h3>Average Distance: <br><span id="avgDistance"></span> mi</h3>
           <h3>Average Elevation: <br><span id="avgElevation"></span> ft</h3>
         </div>
     </div>
     <div class="gopro-wrap">
-      <img class="gopro" src="/cascadehikes/gopro.png">
+      <img class="gopro" src="cascadehikes/gopro.png">
       <div class="screen">
         <div class="photo" id="photobox"></div>
         <div class="black"><p>select a point to see a photo from that hike</p></div>
       </div>
     </div>
     <button onclick="openModal('modal-1')">
-      <img class="register" src="/cascadehikes/register.png">
+      <img class="register" src="cascadehikes/register.png">
     </button>
   </div>
 
@@ -369,23 +369,23 @@
       "name": "CascadeHikes",
       "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
       "features": [
-      { "type": "Feature", "properties": { "id": null, "Name": "Mount Dickerman", "Distance": 8.2, "Elevation": 3884, "Date": "2025-09-13", "PhotoLink": "<img src = \"/cascadehikes/photos/mtdickerman.png\">", "Title": "Mount Dickerman - 8.2mi, 3884ft - 9/13/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.490064740724563, 48.053846572106174 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Heliotrope Ridge", "Distance": 5.2, "Elevation": 1850, "Date": "2025-07-06", "PhotoLink": "<img src = \"/cascadehikes/photos/heliotrope.png\">", "Title": "Heliotrope Ridge - 5.2mi, 1850ft - 7/6/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.896006030059254, 48.802030476916187 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "The Birthday Tour", "Distance": 5.0, "Elevation": 3200, "Date": "2025-05-10", "PhotoLink": "<img src = \"/cascadehikes/photos/birthdayloop.png\">", "Title": "Birthday Tour - 5mi, 3200ft - 5/10/2025" }, "geometry": { "type": "Point", "coordinates": [ -120.674271575503198, 48.519005893000148 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Lake Ann", "Distance": 8.6, "Elevation": 2047, "Date": "2025-08-23", "PhotoLink": "<img src = \"/cascadehikes/photos/lakeann.png\">", "Title": "Lake Ann - 8.6mi,  2047ft - 8/23/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.686135068258082, 48.850242952452874 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Winchester Mountain", "Distance": 3.4, "Elevation": 1300, "Date": "2025-07-19", "PhotoLink": "<img src = \"/cascadehikes/photos/winchestermt.png\">", "Title": "Winchester Mountain - 3.4mi,  2828ft - 7/19/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.635615531563062, 48.95250053431505 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Yellow Aster Butte", "Distance": 8.2, "Elevation": 2828, "Date": "2025-06-29", "PhotoLink": "<img src = \"/cascadehikes/photos/yellowasterbutte.png\">", "Title": "Yellow Aster Butte - 8.2mi,  2828ft - 6/29/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.662446500504061, 48.943422938534837 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Sahale Arm", "Distance": 11.6, "Elevation": 3963, "Date": "2025-07-13", "PhotoLink": "<img src = \"/cascadehikes/photos/sahalearm.png\">", "Title": "Sahale Arm - 11.6mi,  3963ft - 7/13/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.076373653466362, 48.47548418690748 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Maple Pass", "Distance": 6.5, "Elevation": 2162, "Date": "2025-11-02", "PhotoLink": "<img src = \"/cascadehikes/photos/maplepass.png\">", "Title": "Maple Pass - 6.5mi, 2162ft - 11/2/2025" }, "geometry": { "type": "Point", "coordinates": [ -120.735702551489936, 48.510417841862385 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Excelsior Peak", "Distance": 8.7, "Elevation": 3850, "Date": "2026-07-04", "PhotoLink": "<img src = \"/cascadehikes/photos/excelsior.png\">", "Title": "Excelsior Peak Trail - 8.7mi, 3850ft - 7/4/2026" }, "geometry": { "type": "Point", "coordinates": [ -121.801431690696248, 48.909561829170748 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Park Butte", "Distance": 7.9, "Elevation": 2093, "Date": "2026-07-12", "PhotoLink": "<img src = \"/cascadehikes/photos/parkbutte.png\">", "Title": "Park Butte - 7.9mi, 2093ft - 7/12/2026" }, "geometry": { "type": "Point", "coordinates": [ -121.813315355367834, 48.70663162386704 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Ptarmigan Ridge", "Distance": 11.4, "Elevation": 2326, "Date": "2026-07-30", "PhotoLink": "<img src = \"/cascadehikes/photos/ptarmigan.png\">", "Title": "Ptarmigan Ridge - 11.4mi, 2326ft - 7/30/2026" }, "geometry": { "type": "Point", "coordinates": [ -121.692779326467715, 48.846694285085796 ] } },
-      { "type": "Feature", "properties": { "id": null, "Name": "Vesper Peak", "Distance": 6.9, "Elevation": 4061, "Date": "2026-10-05", "PhotoLink": "<img src = \"/cascadehikes/photos/vesperpeak.png\">", "Title": "Vesper Peak - 6.9mi, 4061ft - 10/5/2026" }, "geometry": { "type": "Point", "coordinates": [ -121.477746784367298, 48.024680988350177 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Mount Dickerman", "Distance": 8.2, "Elevation": 3884, "Date": "2025-09-13", "PhotoLink": "<img src = \"cascadehikes/photos/mtdickerman.png\">", "Title": "Mount Dickerman - 8.2mi, 3884ft - 9/13/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.490064740724563, 48.053846572106174 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Heliotrope Ridge", "Distance": 5.2, "Elevation": 1850, "Date": "2025-07-06", "PhotoLink": "<img src = \"cascadehikes/photos/heliotrope.png\">", "Title": "Heliotrope Ridge - 5.2mi, 1850ft - 7/6/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.896006030059254, 48.802030476916187 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "The Birthday Tour", "Distance": 5.0, "Elevation": 3200, "Date": "2025-05-10", "PhotoLink": "<img src = \"cascadehikes/photos/birthdayloop.png\">", "Title": "Birthday Tour - 5mi, 3200ft - 5/10/2025" }, "geometry": { "type": "Point", "coordinates": [ -120.674271575503198, 48.519005893000148 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Lake Ann", "Distance": 8.6, "Elevation": 2047, "Date": "2025-08-23", "PhotoLink": "<img src = \"cascadehikes/photos/lakeann.png\">", "Title": "Lake Ann - 8.6mi,  2047ft - 8/23/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.686135068258082, 48.850242952452874 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Winchester Mountain", "Distance": 3.4, "Elevation": 1300, "Date": "2025-07-19", "PhotoLink": "<img src = \"cascadehikes/photos/winchestermt.png\">", "Title": "Winchester Mountain - 3.4mi,  2828ft - 7/19/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.635615531563062, 48.95250053431505 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Yellow Aster Butte", "Distance": 8.2, "Elevation": 2828, "Date": "2025-06-29", "PhotoLink": "<img src = \"cascadehikes/photos/yellowasterbutte.png\">", "Title": "Yellow Aster Butte - 8.2mi,  2828ft - 6/29/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.662446500504061, 48.943422938534837 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Sahale Arm", "Distance": 11.6, "Elevation": 3963, "Date": "2025-07-13", "PhotoLink": "<img src = \"cascadehikes/photos/sahalearm.png\">", "Title": "Sahale Arm - 11.6mi,  3963ft - 7/13/2025" }, "geometry": { "type": "Point", "coordinates": [ -121.076373653466362, 48.47548418690748 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Maple Pass", "Distance": 6.5, "Elevation": 2162, "Date": "2025-11-02", "PhotoLink": "<img src = \"cascadehikes/photos/maplepass.png\">", "Title": "Maple Pass - 6.5mi, 2162ft - 11/2/2025" }, "geometry": { "type": "Point", "coordinates": [ -120.735702551489936, 48.510417841862385 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Excelsior Peak", "Distance": 8.7, "Elevation": 3850, "Date": "2026-07-04", "PhotoLink": "<img src = \"cascadehikes/photos/excelsior.png\">", "Title": "Excelsior Peak Trail - 8.7mi, 3850ft - 7/4/2026" }, "geometry": { "type": "Point", "coordinates": [ -121.801431690696248, 48.909561829170748 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Park Butte", "Distance": 7.9, "Elevation": 2093, "Date": "2026-07-12", "PhotoLink": "<img src = \"cascadehikes/photos/parkbutte.png\">", "Title": "Park Butte - 7.9mi, 2093ft - 7/12/2026" }, "geometry": { "type": "Point", "coordinates": [ -121.813315355367834, 48.70663162386704 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Ptarmigan Ridge", "Distance": 11.4, "Elevation": 2326, "Date": "2026-07-30", "PhotoLink": "<img src = \"cascadehikes/photos/ptarmigan.png\">", "Title": "Ptarmigan Ridge - 11.4mi, 2326ft - 7/30/2026" }, "geometry": { "type": "Point", "coordinates": [ -121.692779326467715, 48.846694285085796 ] } },
+      { "type": "Feature", "properties": { "id": null, "Name": "Vesper Peak", "Distance": 6.9, "Elevation": 4061, "Date": "2026-10-05", "PhotoLink": "<img src = \"cascadehikes/photos/vesperpeak.png\">", "Title": "Vesper Peak - 6.9mi, 4061ft - 10/5/2026" }, "geometry": { "type": "Point", "coordinates": [ -121.477746784367298, 48.024680988350177 ] } },
       ]
     }
 
     const pointIcon = L.icon({
-      iconUrl: "/cascadehikes/marker.png",
+      iconUrl: "cascadehikes/marker.png",
       iconSize: [30, 30],
       popupAnchor: [0, -30],
       iconAnchor: [15, 30]
