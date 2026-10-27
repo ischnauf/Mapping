@@ -22,7 +22,8 @@
             margin: 0;
             padding: 0;
             overflow-y: scroll;
-            background-color: #f0f0f0;
+            overflow-x: hidden;
+            background-color: #FCF5EB;
             background-image: url("index/dotcrossdark.png");
             background-size: auto;
             background-repeat: repeat;
@@ -61,12 +62,12 @@
             font-family: "patrickhand";
             font-size: 2.5vh;
         }
-        a{
+        .links a{
             color: #525d76;
             text-decoration: none;
         }
-        a:hover{
-            color: white;
+        .links a:hover{
+            color: #899dcd;
         }
 
         .projects{
@@ -75,13 +76,27 @@
             top: 5vh;
             width: 100vw;
             height: auto;
+        }
+        h1{
+            font-size: 3.5vw;
+            left: 0vw;
+            width: 100vw;
+            height: auto;
+            padding: 0;
+            margin: 15px 30px 10px 30px;
+            color: #525d76;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .entries{
+            position: absolute;
+            width: 100vw;
+            height: auto;
             display: grid;
             grid-auto-flow: row;
             grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
             justify-content: space-evenly;
             gap: 30px;
             box-sizing: border-box;
-   
             padding: 20px;
         }
         .entry {
@@ -93,17 +108,18 @@
             border-radius: 10px;
             color: #525d76;
             overflow: hidden;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
         .entry img{
             width: 100%;
-            border-bottom: 2px solid #6f7b97;
         }
-        h1{
+        h2{
             font-size: 2vw;
-            padding: 0 5px 0 10px;
+            margin: 0;
+            padding: 10px 10px 0 15px;
         }
         .entry p{
-            padding: 0 5px 0 10px;
+            padding: 0 10px 0 15px;
         }
     </style>
 </head> 
@@ -115,36 +131,34 @@
             Ilana Schnaufer
         </div>
         <div class="links">
-            <a href="index.html">Projects</a>
-            <a href="">About</a>
+            <a href="index.html">PROJECTS</a>
+            <a href="about.html">ABOUT</a>
         </div>
     </div>
 
     <div class="projects">
-        <div class="entry">
-            <img src="index/cascadehikes.png">
-            <h1>Hiking in the Northern Cascades</h1>
-            <p>A web map dashboard using leaflet and chart.js</p>
-        </div>
-        <div class="entry">
-            <img src="index/cascadehikes.png">
-            <h1>Hiking in the Northern Cascades</h1>
-            <p>A web map dashboard using leaflet and chart.js</p>
-        </div>
-        <div class="entry">
-            <img src="index/cascadehikes.png">
-            <h1>Hiking in the Northern Cascades</h1>
-            <p>A web map dashboard using leaflet and chart.js</p>
-        </div>
-        <div class="entry">
-            <img src="index/cascadehikes.png">
-            <h1>Hiking in the Northern Cascades</h1>
-            <p>A web map dashboard using leaflet and chart.js</p>
-        </div>
-        <div class="entry">
-            <img src="index/cascadehikes.png">
-            <h1>Hiking in the Northern Cascades</h1>
-            <p>A web map dashboard using leaflet and chart.js</p>
+        <h1>Projects</h1>
+        <div class="entries">
+            <div class="entry">
+                <img src="index/cascadehikes.png">
+                <h2>Northern Cascades Hiking Dashboard</h2>
+                <p>An open-source interactive web map dashboard using leaflet and chart.js to track hikes I've completed in the Northern Cascades.</p>
+            </div>
+            <div class="entry">
+                <img src="index/solstice2.png">
+                <h2>Solstice Sunlight in Girdwood, AK</h2>
+                <p>Using QGIS 3D scenes to visually examine the difference in sunlight received by the Girdwood valley in Alaska during the winter and summer solstices.</p>
+            </div>
+            <div class="entry">
+                <img src="index/bigfoot.png">
+                <h2>Bigfoot Sightings Dashboard</h2>
+                <p>An open-source interactive web map dashboard using leaflet and chart.js to examine bigfoot sightings across the United States from 1869 - 2023.</p>
+            </div>
+            <div class="entry">
+                <img src="index/susitna.png">
+                <h2>Sleeping Lady/Mount Susitna Quilt</h2>
+                <p>Using quilting as a means to create both a visual and textile representation of the Sleeping Lady/Mount Susitna, Alaska.</p>
+            </div>
         </div>
     </div>
 
