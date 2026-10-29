@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"> 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-  <script src="https://unpkg.com/leaflet-providers@latest/leaflet-providers.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
   <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
@@ -179,14 +178,14 @@
     }
 
     /* photos */
-    .gopro-wrap{
+    .frame-wrap{
       position: absolute;
       left: 50%;
       bottom: -7%;
       transform: translate(-75%, 0%);
       width: min(35vw, 48.5vh);
     }
-    .gopro{
+    .frame{
       position: relative;
       display: block;
       width: 100%;
@@ -377,8 +376,8 @@
           <h3>Average Elevation: <br><span id="avgElevation"></span> ft</h3>
         </div>
     </div>
-    <div class="gopro-wrap">
-      <img class="gopro" src="cascadehikes/gopro.png">
+    <div class="frame-wrap">
+      <img class="frame" src="cascadehikes/frame.png">
       <div class="screen">
         <div class="photo" id="photobox"></div>
         <div class="black"><p>select a point to see a photo from that hike</p></div>
